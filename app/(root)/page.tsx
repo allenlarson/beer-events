@@ -1,6 +1,6 @@
 import Collection from '@/components/shared/Collection';
 import { Button } from '@/components/ui/button';
-import { getAllEvents } from '@/lib/actions/events.actions';
+import { getAllEvents } from '@/lib/actions/event.actions';
 import Image from 'next/image';
 import Link from 'next/link';
 
