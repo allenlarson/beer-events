@@ -4,8 +4,16 @@ export const headerLinks = [
     route: '/',
   },
   {
+    label: 'Breweries',
+    route: '/breweries',
+  },
+  {
     label: 'Create Event',
     route: '/events/create',
+  },
+  {
+    label: 'Create Brewery',
+    route: '/brewery/create',
   },
   {
     label: 'My Profile',
@@ -23,5 +31,13 @@ export const eventDefaultValues = {
   categoryId: '',
   price: '',
   isFree: false,
+  url: '',
+};
+
+export const breweryDefaultValues = {
+  name: '',
+  description: '',
+  location: '',
+  imageUrl: '',
   url: '',
 };

@@ -2,7 +2,7 @@ import { IEvent } from '@/lib/database/models/event.model';
 import { formatDateTime } from '@/lib/utils';
 import { auth } from '@clerk/nextjs';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from 'next-view-transitions';
 import React from 'react';
 import { DeleteConfirmation } from './DeleteConfirmation';
 

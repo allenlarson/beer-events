@@ -1,7 +1,7 @@
 'use client';
 
 import { headerLinks } from '@/constants';
-import Link from 'next/link';
+import { Link } from 'next-view-transitions';
 import { usePathname } from 'next/navigation';
 import React from 'react';
 

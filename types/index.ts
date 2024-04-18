@@ -147,3 +147,47 @@ export type SearchParamProps = {
   params: { id: string };
   searchParams: { [key: string]: string | string[] | undefined };
 };
+
+// ====== BREWERY PARAMS
+export type CreateBreweryParams = {
+  userId: string;
+  brewery: {
+    name: string;
+    description: string;
+    location: string;
+    imageUrl: string;
+    url: string;
+  };
+  path: string;
+};
+
+export type UpdateBreweryParams = {
+  userId: string;
+  brewery: {
+    _id: string;
+    name: string;
+    description: string;
+    location: string;
+    imageUrl: string;
+    url: string;
+  };
+  path: string;
+};
+
+export type Brewery = {
+  _id: string;
+  name: string;
+  description: string;
+  imageUrl: string;
+  location: string;
+  url: string;
+  organizer: {
+    _id: string;
+    firstName: string;
+    lastName: string;
+  };
+};
+
+export type SearchBreweryParamProps = {
+  params: { id: string };
+};
