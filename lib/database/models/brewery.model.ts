@@ -8,6 +8,23 @@ export interface IBrewery extends Document {
   imageUrl?: string;
   url: string;
   organizer: { _id: string; firstName: string; lastName: string };
+  monday?: string;
+  tuesday?: string;
+  wednesday?: string;
+  thursday?: string;
+  friday?: string;
+  saturday?: string;
+  sunday?: string;
+  hhMonday?: string;
+  hhTuesday?: string;
+  hhWednesday?: string;
+  hhThursday?: string;
+  hhFriday?: string;
+  hhSaturday?: string;
+  hhSunday?: string;
+  onTapUrl?: string;
+  happyHour?: string;
+  slug: string;
 }
 
 const BrewerySchema = new Schema({
@@ -17,6 +34,23 @@ const BrewerySchema = new Schema({
   imageUrl: { type: String, required: true },
   url: { type: String },
   organizer: { type: Schema.Types.ObjectId, ref: 'User' },
+  monday: { type: String },
+  tuesday: { type: String },
+  wednesday: { type: String },
+  thursday: { type: String },
+  friday: { type: String },
+  saturday: { type: String },
+  sunday: { type: String },
+  hhMonday: { type: String },
+  hhTuesday: { type: String },
+  hhWednesday: { type: String },
+  hhThursday: { type: String },
+  hhFriday: { type: String },
+  hhSaturday: { type: String },
+  hhSunday: { type: String },
+  onTapUrl: { type: String },
+  happyHour: { type: String },
+  slug: { type: String },
 });
 
 const Brewery = models.Brewery || model('Brewery', BrewerySchema);
