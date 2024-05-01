@@ -13,7 +13,7 @@ const Footer = () => {
             height={37}
           />
         </Link>
-        <p>2023 Beer Events. All Rights Reserved</p>
+        <p>2024 Beer Events. All Rights Reserved</p>
       </div>
     </footer>
   );

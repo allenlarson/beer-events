@@ -18,7 +18,6 @@ import { Input } from '@/components/ui/input';
 import { breweryFormSchema } from '@/lib/validator';
 import { z } from 'zod';
 import { breweryDefaultValues } from '@/constants';
-import Dropdown from './Dropdown';
 import { Textarea } from '../ui/textarea';
 import { FileUploader } from './FileUploader';
 import Image from 'next/image';
@@ -26,10 +25,17 @@ import DatePicker from 'react-datepicker';
 import { useUploadThing } from '@/lib/uploadthing';
 
 import 'react-datepicker/dist/react-datepicker.css';
-import { Checkbox } from '../ui/checkbox';
 import { useRouter } from 'next/navigation';
 import { IBrewery } from '@/lib/database/models/brewery.model';
 import { createBrewery, updateBrewery } from '@/lib/actions/brewery.actions';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../ui/select';
 
 type BreweryFormProps = {
   userId: string;
@@ -116,6 +122,11 @@ const BreweryForm = ({
     }
   }
 
+  type DropdownProps = {
+    value?: string;
+    handleSelectChange: () => void;
+  };
+
   return (
     <Form {...form}>
       <form
@@ -131,6 +142,23 @@ const BreweryForm = ({
                 <FormControl>
                   <Input
                     placeholder="Brewery Name"
+                    {...field}
+                    className="input-field"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="slug"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <Input
+                    placeholder="Slug"
                     {...field}
                     className="input-field"
                   />
@@ -201,9 +229,106 @@ const BreweryForm = ({
               </FormItem>
             )}
           />
+
+          <FormField
+            control={form.control}
+            name="city"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <SelectTrigger className="select-field">
+                      <SelectValue placeholder="Select a city" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectItem
+                          value="chesapeake"
+                          className="select-item p-regular-14"
+                        >
+                          Chesapeake
+                        </SelectItem>
+                        <SelectItem
+                          value="hampton"
+                          className="select-item p-regular-14"
+                        >
+                          Hampton
+                        </SelectItem>
+                        <SelectItem
+                          value="newport-news"
+                          className="select-item p-regular-14"
+                        >
+                          Newport News
+                        </SelectItem>
+                        <SelectItem
+                          value="norfolk"
+                          className="select-item p-regular-14"
+                        >
+                          Norfolk
+                        </SelectItem>
+                        <SelectItem
+                          value="portsmouth"
+                          className="select-item p-regular-14"
+                        >
+                          Portsmouth
+                        </SelectItem>
+                        <SelectItem
+                          value="virginia-beach"
+                          className="select-item p-regular-14"
+                        >
+                          Virginia Beach
+                        </SelectItem>
+                        <SelectItem
+                          value="suffolk"
+                          className="select-item p-regular-14"
+                        >
+                          Suffolk
+                        </SelectItem>
+                        <SelectItem
+                          value="williamsburg"
+                          className="select-item p-regular-14"
+                        >
+                          Williamsburg
+                        </SelectItem>
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
 
         <div className="flex flex-col gap-5 md:flex-row">
+          <FormField
+            control={form.control}
+            name="onTapUrl"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
+                    <Image
+                      src="/assets/icons/link.svg"
+                      alt="link"
+                      width={24}
+                      height={24}
+                    />
+                    <Input
+                      placeholder="On Tap Url (Your Website)"
+                      {...field}
+                      className="input-field"
+                    />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <FormField
             control={form.control}
             name="url"
@@ -218,7 +343,7 @@ const BreweryForm = ({
                       height={24}
                     />
                     <Input
-                      placeholder="External URL"
+                      placeholder="Website URL"
                       {...field}
                       className="input-field"
                     />
@@ -233,46 +358,22 @@ const BreweryForm = ({
         <div className="flex flex-col gap-5 md:flex-row">
           <FormField
             control={form.control}
-            name="monday"
+            name="facebook"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
                     <Image
-                      src="/assets/icons/dollar.svg"
-                      alt="dollar"
-                      width={24}
-                      height={24}
+                      src="/assets/icons/facebook.svg"
+                      alt="facebook"
+                      width={20}
+                      height={20}
                       className="filter-grey"
                     />
                     <Input
-                      placeholder="Monday Hours"
+                      placeholder="Facebook URL"
                       {...field}
-                      className="p-regular-16 border-0 bg-grey-50 outline-offset-0 focus:border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
-                    />
-                    <FormField
-                      control={form.control}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormControl>
-                            <div className="flex-center items-center">
-                              <label
-                                htmlFor="isFree"
-                                className="whitespace-nowrap pr-3 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                              >
-                                Free Ticket
-                              </label>
-                              <Checkbox
-                                onCheckedChange={field.onChange}
-                                checked={field.value}
-                                id="isFree"
-                                className="mr-2 h-5 w-5 border-2 border-primary-500"
-                              />
-                            </div>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
+                      className="input-field"
                     />
                   </div>
                 </FormControl>
@@ -283,23 +384,442 @@ const BreweryForm = ({
 
           <FormField
             control={form.control}
-            name="url"
+            name="instagram"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
                     <Image
-                      src="/assets/icons/link.svg"
-                      alt="link"
-                      width={24}
-                      height={24}
+                      src="/assets/icons/instagram.svg"
+                      alt="instagram"
+                      width={20}
+                      height={20}
+                      className="filter-grey"
                     />
                     <Input
-                      placeholder="External URL"
+                      placeholder="Instagram URL"
                       {...field}
                       className="input-field"
                     />
                   </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="untappd"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
+                    <Image
+                      src="/assets/icons/untappd.svg"
+                      alt="untappd"
+                      width={20}
+                      height={20}
+                      className="filter-grey"
+                    />
+                    <Input
+                      placeholder="Untappd URL"
+                      {...field}
+                      className="input-field"
+                    />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="flex flex-col gap-10 md:flex-row">
+          <div className="flex flex-col gap-5 w-full p-8 rounded-xl border-gray-50 border-2">
+            <h3 className="">Hours of Operation</h3>
+
+            <FormField
+              control={form.control}
+              name="monday"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl>
+                    <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
+                      <Image
+                        src="/assets/icons/monday.svg"
+                        alt="monday"
+                        width={20}
+                        height={20}
+                        className="filter-grey"
+                      />
+                      <Input
+                        placeholder="Monday Hours ex: 12PM - 9PM"
+                        {...field}
+                        className="input-field"
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="tuesday"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl>
+                    <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
+                      <Image
+                        src="/assets/icons/tuesday.svg"
+                        alt="tuesday"
+                        width={20}
+                        height={20}
+                        className="filter-grey"
+                      />
+                      <Input
+                        placeholder="Tuesday Hours ex: 12PM - 9PM"
+                        {...field}
+                        className="input-field"
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="wednesday"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl>
+                    <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
+                      <Image
+                        src="/assets/icons/wednesday.svg"
+                        alt="wednesday"
+                        width={20}
+                        height={20}
+                        className="filter-grey"
+                      />
+                      <Input
+                        placeholder="Wednesday Hours ex: 12PM - 9PM"
+                        {...field}
+                        className="input-field"
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="thursday"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl>
+                    <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
+                      <Image
+                        src="/assets/icons/thursday.svg"
+                        alt="thursday"
+                        width={20}
+                        height={20}
+                        className="filter-grey"
+                      />
+                      <Input
+                        placeholder="Thursday Hours ex: 12PM - 9PM"
+                        {...field}
+                        className="input-field"
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="friday"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl>
+                    <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
+                      <Image
+                        src="/assets/icons/friday.svg"
+                        alt="friday"
+                        width={20}
+                        height={20}
+                        className="filter-grey"
+                      />
+                      <Input
+                        placeholder="Friday Hours ex: 12PM - 9PM"
+                        {...field}
+                        className="input-field"
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="saturday"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl>
+                    <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
+                      <Image
+                        src="/assets/icons/saturday.svg"
+                        alt="saturday"
+                        width={20}
+                        height={20}
+                        className="filter-grey"
+                      />
+                      <Input
+                        placeholder="Saturday Hours ex: 12PM - 9PM"
+                        {...field}
+                        className="input-field"
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="sunday"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl>
+                    <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
+                      <Image
+                        src="/assets/icons/sunday.svg"
+                        alt="sunday"
+                        width={20}
+                        height={20}
+                        className="filter-grey"
+                      />
+                      <Input
+                        placeholder="Sunday Hours ex: 12PM - 9PM"
+                        {...field}
+                        className="input-field"
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="flex flex-col gap-5 w-full p-8 rounded-xl border-gray-50 border-2">
+            <h3 className="">Happy Hours</h3>
+
+            <FormField
+              control={form.control}
+              name="hhMonday"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl>
+                    <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
+                      <Image
+                        src="/assets/icons/monday.svg"
+                        alt="monday"
+                        width={20}
+                        height={20}
+                        className="filter-grey"
+                      />
+                      <Input
+                        placeholder="e.g., 5PM - 7PM"
+                        {...field}
+                        className="input-field"
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="hhTuesday"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl>
+                    <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
+                      <Image
+                        src="/assets/icons/tuesday.svg"
+                        alt="tuesday"
+                        width={20}
+                        height={20}
+                        className="filter-grey"
+                      />
+                      <Input
+                        placeholder="e.g., 5PM - 7PM"
+                        {...field}
+                        className="input-field"
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="hhWednesday"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl>
+                    <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
+                      <Image
+                        src="/assets/icons/wednesday.svg"
+                        alt="wednesday"
+                        width={20}
+                        height={20}
+                        className="filter-grey"
+                      />
+                      <Input
+                        placeholder="e.g., 5PM - 7PM"
+                        {...field}
+                        className="input-field"
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="hhThursday"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl>
+                    <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
+                      <Image
+                        src="/assets/icons/thursday.svg"
+                        alt="thursday"
+                        width={20}
+                        height={20}
+                        className="filter-grey"
+                      />
+                      <Input
+                        placeholder="e.g., 5PM - 7PM"
+                        {...field}
+                        className="input-field"
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="hhFriday"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl>
+                    <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
+                      <Image
+                        src="/assets/icons/friday.svg"
+                        alt="friday"
+                        width={20}
+                        height={20}
+                        className="filter-grey"
+                      />
+                      <Input
+                        placeholder="e.g., 5PM - 7PM"
+                        {...field}
+                        className="input-field"
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="hhSaturday"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl>
+                    <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
+                      <Image
+                        src="/assets/icons/saturday.svg"
+                        alt="saturday"
+                        width={20}
+                        height={20}
+                        className="filter-grey"
+                      />
+                      <Input
+                        placeholder="e.g., 5PM - 7PM"
+                        {...field}
+                        className="input-field"
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="hhSunday"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl>
+                    <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
+                      <Image
+                        src="/assets/icons/sunday.svg"
+                        alt="sunday"
+                        width={20}
+                        height={20}
+                        className="filter-grey"
+                      />
+                      <Input
+                        placeholder="e.g., 5PM - 7PM"
+                        {...field}
+                        className="input-field"
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-5 md:flex-row">
+          <FormField
+            control={form.control}
+            name="happyHour"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl className="h-24">
+                  <Textarea
+                    placeholder="Happy Hour Details"
+                    {...field}
+                    className="textarea rounded-2xl"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

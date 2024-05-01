@@ -25,6 +25,9 @@ export interface IBrewery extends Document {
   hhSunday?: string;
   onTapUrl?: string;
   happyHour?: string;
+  facebook?: string;
+  instagram?: string;
+  untappd?: string;
   slug: string;
   city: string;
 }
@@ -52,6 +55,9 @@ const BrewerySchema = new Schema({
   hhSunday: { type: String },
   onTapUrl: { type: String },
   happyHour: { type: String },
+  facebook: { type: String },
+  instagram: { type: String },
+  untappd: { type: String },
   slug: { type: String },
   city: { type: String },
 });
