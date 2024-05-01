@@ -1,4 +1,5 @@
 import { Document, Schema, model, models } from 'mongoose';
+import { string } from 'zod';
 
 export interface IBrewery extends Document {
   _id: string;
@@ -25,6 +26,7 @@ export interface IBrewery extends Document {
   onTapUrl?: string;
   happyHour?: string;
   slug: string;
+  city: string;
 }
 
 const BrewerySchema = new Schema({
@@ -51,6 +53,7 @@ const BrewerySchema = new Schema({
   onTapUrl: { type: String },
   happyHour: { type: String },
   slug: { type: String },
+  city: { type: String },
 });
 
 const Brewery = models.Brewery || model('Brewery', BrewerySchema);
