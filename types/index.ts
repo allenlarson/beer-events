@@ -147,3 +147,110 @@ export type SearchParamProps = {
   params: { id: string };
   searchParams: { [key: string]: string | string[] | undefined };
 };
+
+// ====== BREWERY PARAMS
+export type CreateBreweryParams = {
+  userId: string;
+  brewery: {
+    name: string;
+    description: string;
+    location: string;
+    imageUrl: string;
+    url: string;
+    monday?: string;
+    tuesday?: string;
+    wednesday?: string;
+    thursday?: string;
+    friday?: string;
+    saturday?: string;
+    sunday?: string;
+    hhMonday?: string;
+    hhTuesday?: string;
+    hhWednesday?: string;
+    hhThursday?: string;
+    hhFriday?: string;
+    hhSaturday?: string;
+    hhSunday?: string;
+    onTapUrl?: string;
+    happyHour?: string;
+    slug: string;
+    facebook: string;
+    instagram: string;
+    untappd: string;
+    city: string;
+  };
+  path: string;
+};
+
+export type UpdateBreweryParams = {
+  userId: string;
+  brewery: {
+    _id: string;
+    name: string;
+    description: string;
+    location: string;
+    imageUrl: string;
+    url: string;
+    monday?: string;
+    tuesday?: string;
+    wednesday?: string;
+    thursday?: string;
+    friday?: string;
+    saturday?: string;
+    sunday?: string;
+    hhMonday?: string;
+    hhTuesday?: string;
+    hhWednesday?: string;
+    hhThursday?: string;
+    hhFriday?: string;
+    hhSaturday?: string;
+    hhSunday?: string;
+    onTapUrl?: string;
+    happyHour?: string;
+    slug: string;
+    facebook: string;
+    instagram: string;
+    untappd: string;
+    city: string;
+  };
+  path: string;
+};
+
+export type Brewery = {
+  _id: string;
+  name: string;
+  description: string;
+  imageUrl: string;
+  location: string;
+  url: string;
+  monday?: string;
+  tuesday?: string;
+  wednesday?: string;
+  thursday?: string;
+  friday?: string;
+  saturday?: string;
+  sunday?: string;
+  hhMonday?: string;
+  hhTuesday?: string;
+  hhWednesday?: string;
+  hhThursday?: string;
+  hhFriday?: string;
+  hhSaturday?: string;
+  hhSunday?: string;
+  onTapUrl?: string;
+  happyHour?: string;
+  slug: string;
+  facebook: string;
+  instagram: string;
+  untappd: string;
+  city: string;
+  organizer: {
+    _id: string;
+    firstName: string;
+    lastName: string;
+  };
+};
+
+export type SearchBreweryParamProps = {
+  params: { id: string };
+};

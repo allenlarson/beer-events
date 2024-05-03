@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from 'next-view-transitions';
 
 const Footer = () => {
   return (
@@ -13,7 +13,7 @@ const Footer = () => {
             height={37}
           />
         </Link>
-        <p>2023 Beer Events. All Rights Reserved</p>
+        <p>2024 Beer Events. All Rights Reserved</p>
       </div>
     </footer>
   );

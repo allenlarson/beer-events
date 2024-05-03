@@ -5,7 +5,8 @@ import { Button } from '@/components/ui/button';
 import { getAllEvents } from '@/lib/actions/event.actions';
 import { SearchParamProps } from '@/types';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from 'next-view-transitions';
+import HappyHour from '@/components/shared/HappyHour';
 
 export default async function Home({ searchParams }: SearchParamProps) {
   const page = Number(searchParams?.page) || 1;
@@ -44,6 +45,16 @@ export default async function Home({ searchParams }: SearchParamProps) {
           />
         </div>
       </section>
+
+      <section
+        id="events"
+        className="wrapper my-8 flex flex-col gap-8 md:gap-12"
+      >
+        <h2 className="h2-bold">Happy Hour</h2>
+        <div className="flex w-full flex-col gap-5 md:flex-row">
+          <HappyHour />
+        </div>
+      </section>
       <section
         id="events"
         className="wrapper my-8 flex flex-col gap-8 md:gap-12"
@@ -52,6 +63,7 @@ export default async function Home({ searchParams }: SearchParamProps) {
           Trusted by <br /> Thousands of Events
         </h2>
         <div className="flex w-full flex-col gap-5 md:flex-row">
+          <HappyHour />
           <Search />
           <CategoryFilter />
         </div>

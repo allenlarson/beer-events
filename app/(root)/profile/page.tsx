@@ -5,7 +5,7 @@ import { getOrdersByUser } from '@/lib/actions/order.actions';
 import { IOrder } from '@/lib/database/models/order.model';
 import { SearchParamProps } from '@/types';
 import { auth } from '@clerk/nextjs';
-import Link from 'next/link';
+import { Link } from 'next-view-transitions';
 import React from 'react';
 
 const ProfilePage = async ({ searchParams }: SearchParamProps) => {
