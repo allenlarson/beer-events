@@ -254,3 +254,9 @@ export type Brewery = {
 export type SearchBreweryParamProps = {
   params: { id: string };
 };
+
+export type GetAllBreweryParams = {
+  query: string;
+  limit: number;
+  page: number;
+};

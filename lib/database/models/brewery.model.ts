@@ -1,5 +1,4 @@
 import { Document, Schema, model, models } from 'mongoose';
-import { string } from 'zod';
 
 export interface IBrewery extends Document {
   _id: string;
