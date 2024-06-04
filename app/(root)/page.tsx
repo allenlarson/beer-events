@@ -7,6 +7,8 @@ import { SearchParamProps } from '@/types';
 import Image from 'next/image';
 import { Link } from 'next-view-transitions';
 import HappyHour from '@/components/shared/HappyHour';
+import { getAllBreweries } from '@/lib/actions/brewery.actions';
+import { IBrewery } from '@/lib/database/models/brewery.model';
 
 export default async function Home({ searchParams }: SearchParamProps) {
   const page = Number(searchParams?.page) || 1;
@@ -19,6 +21,8 @@ export default async function Home({ searchParams }: SearchParamProps) {
     page: page,
     limit: 6,
   });
+
+  const breweries: IBrewery[] = await getAllBreweries();
 
   return (
     <>
@@ -52,7 +56,7 @@ export default async function Home({ searchParams }: SearchParamProps) {
       >
         <h2 className="h2-bold">Happy Hour</h2>
         <div className="flex w-full flex-col gap-5 md:flex-row">
-          <HappyHour />
+          <HappyHour data={breweries} />
         </div>
       </section>
       <section
