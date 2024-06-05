@@ -15,8 +15,23 @@ type HappyHourProps = {
 };
 
 const HappyHour = ({ data }: HappyHourProps) => {
-  const happyHour = data.filter(brewery => brewery.hhMonday !== '');
+  const dayKeyMap: { [key: string]: keyof IBrewery } = {
+    Sunday: 'hhSunday',
+    Monday: 'hhMonday',
+    Tuesday: 'hhTuesday',
+    Wednesday: 'hhWednesday',
+    Thursday: 'hhThursday',
+    Friday: 'hhFriday',
+    Saturday: 'hhSaturday',
+  };
 
+  // Get the current day as a string
+  const today = new Date().toLocaleString('en-US', { weekday: 'long' });
+
+  // Determine the appropriate key for today's happy hour
+  const contentKey = dayKeyMap[today];
+
+  const happyHour = data.filter(brewery => brewery[contentKey] !== '');
   return (
     <>
       <Table className="sm:w-[500px]">
@@ -31,7 +46,9 @@ const HappyHour = ({ data }: HappyHourProps) => {
             <TableRow key={brewery.name}>
               <TableCell className="font-medium">{brewery.name}</TableCell>
 
-              <TableCell className="text-right">{brewery.hhMonday}</TableCell>
+              <TableCell className="text-right">
+                {brewery[contentKey]}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -30,6 +30,7 @@ import { Checkbox } from '../ui/checkbox';
 import { useRouter } from 'next/navigation';
 import { createEvent, updateEvent } from '@/lib/actions/event.actions';
 import { IEvent } from '@/lib/database/models/event.model';
+import BreweryDropdown from './BreweryDropdown';
 
 type EventFormProps = {
   userId: string;
@@ -130,6 +131,21 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                     placeholder="Event title"
                     {...field}
                     className="input-field"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="breweryId"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <BreweryDropdown
+                    onChangeHandler={field.onChange}
+                    value={field.value}
                   />
                 </FormControl>
                 <FormMessage />

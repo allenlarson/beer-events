@@ -16,6 +16,7 @@ import {
   GetEventsByUserParams,
   GetRelatedEventsByCategoryParams,
 } from '@/types';
+import Brewery from '../database/models/brewery.model';
 
 const getCategoryByName = async (name: string) => {
   return Category.findOne({ name: { $regex: name, $options: 'i' } });
@@ -28,7 +29,8 @@ const populateEvent = (query: any) => {
       model: User,
       select: '_id firstName lastName',
     })
-    .populate({ path: 'category', model: Category, select: '_id name' });
+    .populate({ path: 'category', model: Category, select: '_id name' })
+    .populate({ path: 'brewery', model: Brewery, select: '_id name' });
 };
 
 // CREATE
@@ -43,6 +45,7 @@ export async function createEvent({ userId, event, path }: CreateEventParams) {
       ...event,
       category: event.categoryId,
       organizer: userId,
+      brewery: event.breweryId,
     });
     revalidatePath(path);
 
@@ -79,7 +82,7 @@ export async function updateEvent({ userId, event, path }: UpdateEventParams) {
 
     const updatedEvent = await Event.findByIdAndUpdate(
       event._id,
-      { ...event, category: event.categoryId },
+      { ...event, category: event.categoryId, brewery: event.breweryId },
       { new: true }
     );
     revalidatePath(path);
