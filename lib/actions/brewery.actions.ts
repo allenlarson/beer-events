@@ -7,17 +7,35 @@ import Brewery from '@/lib/database/models/brewery.model';
 import User from '../database/models/user.model';
 import { handleError } from '@/lib/utils';
 
-import { CreateBreweryParams, UpdateBreweryParams } from '@/types';
+import {
+  CreateBreweryParams,
+  GetAllBreweryParams,
+  UpdateBreweryParams,
+} from '@/types';
 
-const populateBrewery = (query: any) => {
-  return query
-    .populate({
-      path: 'organizer',
-      model: User,
-      select: '_id firstName lastName',
-    })
-    .populate({ path: 'brewery', select: '_id name' });
-};
+// const populateBrewery = (query: any) => {
+//   return query
+//     .populate({
+//       path: 'name',
+//       model: Brewery,
+//       select: '_id name',
+//     })
+//     .populate({ path: 'brewery', select: '_id name' });
+// };
+
+export async function getAllBreweries() {
+  try {
+    await connectToDatabase();
+
+    const breweries = await Brewery.find().sort({ name: 1 });
+
+    if (!breweries) throw new Error('Breweries not found');
+
+    return JSON.parse(JSON.stringify(breweries));
+  } catch (error) {
+    handleError(error);
+  }
+}
 
 // GET ONE Brewery BY ID
 export async function getBreweryById(id: string) {

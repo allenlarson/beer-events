@@ -19,6 +19,7 @@ import { eventFormSchema } from '@/lib/validator';
 import { z } from 'zod';
 import { eventDefaultValues } from '@/constants';
 import Dropdown from './Dropdown';
+import BreweryDropdown from './BreweryDropdown';
 import { Textarea } from '../ui/textarea';
 import { FileUploader } from './FileUploader';
 import Image from 'next/image';
@@ -46,6 +47,8 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
           ...event,
           startDateTime: new Date(event.startDateTime),
           endDateTime: new Date(event.endDateTime),
+          categoryId: event.category._id,
+          breweryId: event.brewery._id,
         }
       : eventDefaultValues;
 
@@ -73,6 +76,8 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
       uploadedImageUrl = uploadedImages[0].url;
     }
 
+    console.log(values);
+
     if (type === 'Create') {
       try {
         const newEvent = await createEvent({
@@ -89,7 +94,6 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
         console.log(error);
       }
     }
-
     if (type === 'Update') {
       if (!eventId) {
         router.back();
@@ -130,6 +134,21 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                     placeholder="Event title"
                     {...field}
                     className="input-field"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="breweryId"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <BreweryDropdown
+                    onChangeHandler={field.onChange}
+                    value={field.value}
                   />
                 </FormControl>
                 <FormMessage />

@@ -32,6 +32,7 @@ export const eventDefaultValues = {
   price: '',
   isFree: false,
   url: '',
+  breweryId: '',
 };
 
 export const breweryDefaultValues = {

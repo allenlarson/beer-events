@@ -7,13 +7,13 @@ const Footer = () => {
       <div className="flex-center wrapper flex-between flex flex-col gap-4 p-5 text-center sm:flex-row">
         <Link href="/">
           <Image
-            src="/assets/images/logo.svg"
+            src="/assets/images/thirstylogo.svg"
             alt="logo"
             width={128}
             height={37}
           />
         </Link>
-        <p>2024 Beer Events. All Rights Reserved</p>
+        <p>Copyright © 2024 Thirsty Virginia. All Rights Reserved</p>
       </div>
     </footer>
   );

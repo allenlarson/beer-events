@@ -12,11 +12,11 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: 'Hampton Roads Beer Events Platform',
+  title: 'Thirsty Virginia - Hampton Roads Beer Events Platform',
   description:
     'Beer Platform to help you find events for your local hampton road breweries. Food trucks, events, beer releases & more!',
   icons: {
-    icon: '/assets/images/logo.svg',
+    icon: '/assets/images/thirstyfav.svg',
   },
 };
 

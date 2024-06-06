@@ -13,6 +13,7 @@ const EventDetails = async ({
   searchParams,
 }: SearchParamProps) => {
   const event = await getEventById(id);
+  console.log(event);
 
   const relatedEvents = await getRelatedEventsByCategory({
     categoryId: event.category._id,
@@ -48,9 +49,7 @@ const EventDetails = async ({
 
                 <p className="p-medium-18 ml-2 mt-2 sm:mt-0">
                   by{' '}
-                  <span className="text-primary-500">
-                    {event.organizer.firstName} {event.organizer.lastName}
-                  </span>
+                  <span className="text-primary-500">{event.brewery.name}</span>
                 </p>
               </div>
             </div>
