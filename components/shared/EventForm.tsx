@@ -19,6 +19,7 @@ import { eventFormSchema } from '@/lib/validator';
 import { z } from 'zod';
 import { eventDefaultValues } from '@/constants';
 import Dropdown from './Dropdown';
+import BreweryDropdown from './BreweryDropdown';
 import { Textarea } from '../ui/textarea';
 import { FileUploader } from './FileUploader';
 import Image from 'next/image';
@@ -30,7 +31,6 @@ import { Checkbox } from '../ui/checkbox';
 import { useRouter } from 'next/navigation';
 import { createEvent, updateEvent } from '@/lib/actions/event.actions';
 import { IEvent } from '@/lib/database/models/event.model';
-import BreweryDropdown from './BreweryDropdown';
 
 type EventFormProps = {
   userId: string;
@@ -47,6 +47,8 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
           ...event,
           startDateTime: new Date(event.startDateTime),
           endDateTime: new Date(event.endDateTime),
+          categoryId: event.category._id,
+          breweryId: event.brewery._id,
         }
       : eventDefaultValues;
 
@@ -74,6 +76,8 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
       uploadedImageUrl = uploadedImages[0].url;
     }
 
+    console.log(values);
+
     if (type === 'Create') {
       try {
         const newEvent = await createEvent({
@@ -90,7 +94,6 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
         console.log(error);
       }
     }
-
     if (type === 'Update') {
       if (!eventId) {
         router.back();

@@ -6,6 +6,7 @@ import { connectToDatabase } from '@/lib/database';
 import Event from '@/lib/database/models/event.model';
 import User from '@/lib/database/models/user.model';
 import Category from '@/lib/database/models/category.model';
+import Brewery from '../database/models/brewery.model';
 import { handleError } from '@/lib/utils';
 
 import {
@@ -16,7 +17,6 @@ import {
   GetEventsByUserParams,
   GetRelatedEventsByCategoryParams,
 } from '@/types';
-import Brewery from '../database/models/brewery.model';
 
 const getCategoryByName = async (name: string) => {
   return Category.findOne({ name: { $regex: name, $options: 'i' } });

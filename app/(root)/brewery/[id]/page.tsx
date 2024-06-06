@@ -110,39 +110,45 @@ const BreweryDetails = async ({ params: { id } }: SearchBreweryParamProps) => {
               <TableBody>
                 <TableRow>
                   <TableCell className="font-medium">Monday</TableCell>
-                  <TableCell className="text-right">{brewery.monday}</TableCell>
+                  <TableCell className="text-right uppercase">
+                    {brewery.monday}
+                  </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell className="font-medium">Tuesday</TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-right uppercase">
                     {brewery.tuesday}
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell className="font-medium">Wednesday</TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-right uppercase">
                     {brewery.wednesday}
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell className="font-medium">Thursday</TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-right uppercase">
                     {brewery.thursday}
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell className="font-medium">Friday</TableCell>
-                  <TableCell className="text-right">{brewery.friday}</TableCell>
+                  <TableCell className="text-right uppercase">
+                    {brewery.friday}
+                  </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell className="font-medium">Saturday</TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-right uppercase">
                     {brewery.saturday}
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell className="font-medium">Sunday</TableCell>
-                  <TableCell className="text-right">{brewery.sunday}</TableCell>
+                  <TableCell className="text-right uppercase">
+                    {brewery.sunday}
+                  </TableCell>
                 </TableRow>
               </TableBody>
             </Table>
@@ -153,43 +159,43 @@ const BreweryDetails = async ({ params: { id } }: SearchBreweryParamProps) => {
               <TableBody>
                 <TableRow>
                   <TableCell className="font-medium">Monday</TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-right uppercase">
                     {brewery.hhMonday}
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell className="font-medium">Tuesday</TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-right uppercase">
                     {brewery.hhTuesday}
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell className="font-medium">Wednesday</TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-right uppercase">
                     {brewery.hhWednesday}
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell className="font-medium">Thursday</TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-right uppercase">
                     {brewery.hhThursday}
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell className="font-medium">Friday</TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-right uppercase">
                     {brewery.hhFriday}
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell className="font-medium">Saturday</TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-right uppercase">
                     {brewery.hhSaturday}
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell className="font-medium">Sunday</TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-right uppercase">
                     {brewery.hhSunday}
                   </TableCell>
                 </TableRow>
@@ -198,7 +204,7 @@ const BreweryDetails = async ({ params: { id } }: SearchBreweryParamProps) => {
           </div>
         </div>
       </section>
-      <section className="container pb-16">
+      <section className="wrapper mb-16">
         <h3 className="h3-bold pb-6">Brewery Specials</h3>
         <p className="p-medium-16 lg:p-regular-18">{brewery.happyHour}</p>
       </section>
