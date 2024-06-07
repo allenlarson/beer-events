@@ -18,7 +18,7 @@ const Header = () => {
           />
         </Link>
         <SignedIn>
-          <nav className="md:flex-between hidden w-full max-w-xs">
+          <nav className="md:flex-between hidden w-full">
             <NavItems />
           </nav>
         </SignedIn>
