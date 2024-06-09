@@ -17,11 +17,11 @@ const Header = () => {
             alt="logo"
           />
         </Link>
-        <SignedIn>
-          <nav className="md:flex-between hidden w-full">
-            <NavItems />
-          </nav>
-        </SignedIn>
+
+        <nav className="md:flex-between hidden w-full">
+          <NavItems />
+        </nav>
+
         <div className="flex w-32 justify-end gap-3">
           <SignedIn>
             <UserButton afterSignOutUrl="/" />

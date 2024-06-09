@@ -30,7 +30,7 @@ const populateEvent = (query: any) => {
       select: '_id firstName lastName',
     })
     .populate({ path: 'category', model: Category, select: '_id name' })
-    .populate({ path: 'brewery', model: Brewery, select: '_id name' });
+    .populate({ path: 'brewery', model: Brewery, select: '_id name imageUrl' });
 };
 
 // CREATE
