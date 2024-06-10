@@ -33,6 +33,39 @@ const populateEvent = (query: any) => {
     .populate({ path: 'brewery', model: Brewery, select: '_id name imageUrl' });
 };
 
+// CREATE MULTIPLE EVENTS
+export async function createMultipleEvents({
+  userId,
+  events,
+  path,
+}: {
+  userId: string;
+  events: any[];
+  path: string;
+}) {
+  try {
+    await connectToDatabase();
+
+    const organizer = await User.findById(userId);
+    if (!organizer) throw new Error('Organizer not found');
+
+    const newEvents = await Event.insertMany(
+      events.map(event => ({
+        ...event,
+        category: event.categoryId,
+        organizer: userId,
+        brewery: event.breweryId,
+      }))
+    );
+
+    revalidatePath(path);
+
+    return JSON.parse(JSON.stringify(newEvents));
+  } catch (error) {
+    handleError(error);
+  }
+}
+
 // CREATE
 export async function createEvent({ userId, event, path }: CreateEventParams) {
   try {

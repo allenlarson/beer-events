@@ -28,7 +28,7 @@ export type CreateEventParams = {
     categoryId: string;
     price: string;
     isFree: boolean;
-    url: string;
+    url?: string;
     breweryId: string;
   };
   path: string;
@@ -47,7 +47,7 @@ export type UpdateEventParams = {
     categoryId: string;
     price: string;
     isFree: boolean;
-    url: string;
+    url?: string;
     breweryId: string;
   };
   path: string;

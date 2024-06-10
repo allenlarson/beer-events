@@ -76,8 +76,6 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
       uploadedImageUrl = uploadedImages[0].url;
     }
 
-    console.log(values);
-
     if (type === 'Create') {
       try {
         const newEvent = await createEvent({
@@ -126,14 +124,13 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
         <div className="flex flex-col gap-5 md:flex-row">
           <FormField
             control={form.control}
-            name="title"
+            name="breweryId"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
-                  <Input
-                    placeholder="Event title"
-                    {...field}
-                    className="input-field"
+                  <BreweryDropdown
+                    onChangeHandler={field.onChange}
+                    value={field.value}
                   />
                 </FormControl>
                 <FormMessage />
@@ -142,13 +139,14 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
           />
           <FormField
             control={form.control}
-            name="breweryId"
+            name="title"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
-                  <BreweryDropdown
-                    onChangeHandler={field.onChange}
-                    value={field.value}
+                  <Input
+                    placeholder="Event title"
+                    {...field}
+                    className="input-field"
                   />
                 </FormControl>
                 <FormMessage />
@@ -178,7 +176,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
             name="description"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormControl className="h-72">
+                <FormControl className="h-36">
                   <Textarea
                     placeholder="Event description"
                     {...field}
@@ -194,7 +192,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
             name="imageUrl"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormControl className="h-72">
+                <FormControl className="h-36">
                   <FileUploader
                     onFieldChange={field.onChange}
                     imageUrl={field.value}
