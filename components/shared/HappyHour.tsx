@@ -2,9 +2,7 @@ import { IBrewery } from '@/lib/database/models/brewery.model';
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -33,8 +31,9 @@ const HappyHour = ({ data }: HappyHourProps) => {
 
   const happyHour = data.filter(brewery => brewery[contentKey] !== '');
   return (
-    <>
-      <Table className="sm:w-[500px]">
+    <div className="flex-col w-full">
+      <h3 className="h3-bold pb-8">Happy Hours</h3>
+      <Table className="sm:w-[400px]">
         <TableHeader>
           <TableRow>
             <TableHead className="">Brewery</TableHead>
@@ -52,14 +51,8 @@ const HappyHour = ({ data }: HappyHourProps) => {
             </TableRow>
           ))}
         </TableBody>
-        {/*       <TableFooter>
-        <TableRow>
-          <TableCell colSpan={3}>Total</TableCell>
-          <TableCell className="text-right">$2,500.00</TableCell>
-        </TableRow>
-      </TableFooter> */}
       </Table>
-    </>
+    </div>
   );
 };
 

@@ -20,16 +20,16 @@ const BreweryDetails = async ({ params: { id } }: SearchBreweryParamProps) => {
   return (
     <>
       <section className="flex justify-center bg-primary-50 bg-dotted-pattern bg-contain">
-        <div className="grid grid-cols-1 md:grid-cols-2 2xl:max-w-7xl">
+        <div className="grid grid-cols-1 md:grid-cols-2 2xl:max-w-7xl wrapper">
           <Image
             src={brewery.imageUrl}
             alt={`${brewery.name} logo`}
-            width={1000}
-            height={1000}
-            className="h-full min-h-[300px] object-cover object-center"
+            width={500}
+            height={500}
+            className="min-w-[300px] object-cover object-center self-center"
           />
 
-          <div className="flex w-full flex-col gap-8 p-5 md:p-10">
+          <div className="flex w-full flex-col gap-6 p-2 md:p-2">
             <div className="flex flex-col gap-6">
               <h2 className="h2-bold">{brewery.name}</h2>
             </div>
@@ -206,7 +206,9 @@ const BreweryDetails = async ({ params: { id } }: SearchBreweryParamProps) => {
       </section>
       <section className="wrapper mb-16">
         <h3 className="h3-bold pb-6">Brewery Specials</h3>
-        <p className="p-medium-16 lg:p-regular-18">{brewery.happyHour}</p>
+        <p className="p-medium-16 lg:p-regular-18 whitespace-pre-wrap">
+          {brewery.happyHour}
+        </p>
       </section>
     </>
   );

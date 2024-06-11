@@ -9,6 +9,7 @@ import { Link } from 'next-view-transitions';
 import HappyHour from '@/components/shared/HappyHour';
 import { getAllBreweries } from '@/lib/actions/brewery.actions';
 import { IBrewery } from '@/lib/database/models/brewery.model';
+import FoodTrucks from '@/components/shared/FoodTrucks';
 
 export default async function Home({ searchParams }: SearchParamProps) {
   const page = Number(searchParams?.page) || 1;
@@ -52,17 +53,18 @@ export default async function Home({ searchParams }: SearchParamProps) {
         id="events"
         className="wrapper my-8 flex flex-col gap-8 md:gap-12"
       >
-        <h2 className="h2-bold">Happy Hour</h2>
+        <h2 className="h2-bold">Daily Events</h2>
         <div className="flex w-full flex-col gap-5 md:flex-row">
           <HappyHour data={breweries} />
+          <FoodTrucks data={events?.data} />
         </div>
       </section>
       <section
-        id="events"
+        id="more_events"
         className="wrapper my-8 flex flex-col gap-8 md:gap-12"
       >
         <h2 className="h2-bold">
-          Trusted by <br /> Thousands of Events
+          Upcomming <br /> Brewery Events
         </h2>
         <div className="flex w-full flex-col gap-5 md:flex-row">
           <Search />

@@ -99,7 +99,9 @@ const EventDetails = async ({
 
             <div className="flex flex-col gap-2">
               <p className="p-bold-20 text-grey-600">About this event:</p>
-              <p className="p-medium-16 lg:p-regular-18">{event.description}</p>
+              <p className="p-medium-16 lg:p-regular-18 whitespace-pre-wrap">
+                {event.description}
+              </p>
               <p className="p-medium-16 lg:p-regular-18 truncate text-primary-500 underline">
                 <Link href={event.url} target="_blank">
                   {event.url}

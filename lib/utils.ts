@@ -19,6 +19,12 @@ export const formatDateTime = (dateString: Date) => {
     hour12: true, // use 12-hour clock (true) or 24-hour clock (false)
   };
 
+  const sameTime: Intl.DateTimeFormatOptions = {
+    weekday: 'long',
+    day: '2-digit',
+    year: 'numeric',
+  };
+
   const dateOptions: Intl.DateTimeFormatOptions = {
     weekday: 'short', // abbreviated weekday name (e.g., 'Mon')
     month: 'short', // abbreviated month name (e.g., 'Oct')
@@ -31,6 +37,11 @@ export const formatDateTime = (dateString: Date) => {
     minute: 'numeric', // numeric minute (e.g., '30')
     hour12: true, // use 12-hour clock (true) or 24-hour clock (false)
   };
+
+  const formattedSameTime: string = new Date(dateString).toLocaleString(
+    'en-US',
+    sameTime
+  );
 
   const formattedDateTime: string = new Date(dateString).toLocaleString(
     'en-US',
@@ -51,6 +62,7 @@ export const formatDateTime = (dateString: Date) => {
     dateTime: formattedDateTime,
     dateOnly: formattedDate,
     timeOnly: formattedTime,
+    sameTime: formattedSameTime,
   };
 };
 
