@@ -65,6 +65,12 @@ export type GetAllEventsParams = {
   page: number;
 };
 
+export type GetHomeEventsParams = {
+  category: string;
+  limit: number;
+  page: number;
+};
+
 export type GetEventsByUserParams = {
   userId: string;
   limit?: number;
@@ -88,7 +94,7 @@ export type Event = {
   location: string;
   startDateTime: Date;
   endDateTime: Date;
-  url: string;
+  url?: string;
   organizer: {
     _id: string;
     firstName: string;

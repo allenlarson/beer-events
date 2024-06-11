@@ -32,8 +32,8 @@ const HappyHour = ({ data }: HappyHourProps) => {
   const happyHour = data.filter(brewery => brewery[contentKey] !== '');
   return (
     <div className="flex-col w-full">
-      <h3 className="h3-bold pb-8">Happy Hours</h3>
-      <Table className="sm:w-[400px]">
+      <h3 className="h3-bold pb-12 justify-center text-center">Happy Hours</h3>
+      <Table className="">
         <TableHeader>
           <TableRow>
             <TableHead className="">Brewery</TableHead>
