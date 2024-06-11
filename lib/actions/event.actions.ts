@@ -16,6 +16,7 @@ import {
   GetAllEventsParams,
   GetEventsByUserParams,
   GetRelatedEventsByCategoryParams,
+  GetHomeEventsParams,
 } from '@/types';
 
 const getCategoryByName = async (name: string) => {
@@ -30,8 +31,45 @@ const populateEvent = (query: any) => {
       select: '_id firstName lastName',
     })
     .populate({ path: 'category', model: Category, select: '_id name' })
-    .populate({ path: 'brewery', model: Brewery, select: '_id name' });
+    .populate({
+      path: 'brewery',
+      model: Brewery,
+      select: '_id name imageUrl url',
+    });
 };
+
+// CREATE MULTIPLE EVENTS
+export async function createMultipleEvents({
+  userId,
+  events,
+  path,
+}: {
+  userId: string;
+  events: any[];
+  path: string;
+}) {
+  try {
+    await connectToDatabase();
+
+    const organizer = await User.findById(userId);
+    if (!organizer) throw new Error('Organizer not found');
+
+    const newEvents = await Event.insertMany(
+      events.map(event => ({
+        ...event,
+        category: event.categoryId,
+        organizer: userId,
+        brewery: event.breweryId,
+      }))
+    );
+
+    revalidatePath(path);
+
+    return JSON.parse(JSON.stringify(newEvents));
+  } catch (error) {
+    handleError(error);
+  }
+}
 
 // CREATE
 export async function createEvent({ userId, event, path }: CreateEventParams) {
@@ -121,16 +159,69 @@ export async function getAllEvents({
     const categoryCondition = category
       ? await getCategoryByName(category)
       : null;
+
+    // Get the start of the current day
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // Condition to check if the event date is today or in the future
+    const dateCondition = { startDateTime: { $gte: today } };
+
     const conditions = {
       $and: [
         titleCondition,
         categoryCondition ? { category: categoryCondition._id } : {},
+        dateCondition,
       ],
     };
 
     const skipAmount = (Number(page) - 1) * limit;
     const eventsQuery = Event.find(conditions)
-      .sort({ createdAt: 'desc' })
+      .sort({ startDateTime: 'asc' })
+      .skip(skipAmount)
+      .limit(limit);
+
+    const events = await populateEvent(eventsQuery);
+    const eventsCount = await Event.countDocuments(conditions);
+
+    return {
+      data: JSON.parse(JSON.stringify(events)),
+      totalPages: Math.ceil(eventsCount / limit),
+    };
+  } catch (error) {
+    handleError(error);
+  }
+}
+
+export async function getHomeEvents({
+  limit,
+  page,
+  category,
+}: GetHomeEventsParams) {
+  try {
+    await connectToDatabase();
+
+    const categoryCondition = category
+      ? await getCategoryByName(category)
+      : null;
+
+    // Get the start of the current day
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // Condition to check if the event date is today or in the future
+    const dateCondition = { startDateTime: { $gte: today } };
+
+    const conditions = {
+      $and: [
+        categoryCondition ? { category: categoryCondition._id } : {},
+        dateCondition,
+      ],
+    };
+
+    const skipAmount = (Number(page) - 1) * limit;
+    const eventsQuery = Event.find(conditions)
+      .sort({ startDateTime: 'asc' })
       .skip(skipAmount)
       .limit(limit);
 

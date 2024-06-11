@@ -23,7 +23,7 @@ export const getAllCategories = async () => {
   try {
     await connectToDatabase();
 
-    const categories = await Category.find();
+    const categories = await Category.find().sort({ name: 1 });
 
     return JSON.parse(JSON.stringify(categories));
   } catch (error) {

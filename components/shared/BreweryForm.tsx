@@ -175,7 +175,7 @@ const BreweryForm = ({
             name="description"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormControl className="h-72">
+                <FormControl className="h-36">
                   <Textarea
                     placeholder="Brewery description"
                     {...field}
@@ -191,7 +191,7 @@ const BreweryForm = ({
             name="imageUrl"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormControl className="h-72">
+                <FormControl className="h-36">
                   <FileUploader
                     onFieldChange={field.onChange}
                     imageUrl={field.value}

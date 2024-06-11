@@ -7,13 +7,13 @@ import {
 import { formatDateTime } from '@/lib/utils';
 import { SearchParamProps } from '@/types';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const EventDetails = async ({
   params: { id },
   searchParams,
 }: SearchParamProps) => {
   const event = await getEventById(id);
-  console.log(event);
 
   const relatedEvents = await getRelatedEventsByCategory({
     categoryId: event.category._id,
@@ -26,7 +26,9 @@ const EventDetails = async ({
       <section className="flex justify-center bg-primary-50 bg-dotted-pattern bg-contain">
         <div className="grid grid-cols-1 md:grid-cols-2 2xl:max-w-7xl">
           <Image
-            src={event.imageUrl}
+            src={
+              event.imageUrl !== '' ? event.imageUrl : event.brewery.imageUrl
+            }
             alt="hero image"
             width={1000}
             height={1000}
@@ -54,7 +56,7 @@ const EventDetails = async ({
               </div>
             </div>
 
-            <CheckoutButton event={event} />
+            {/* <CheckoutButton event={event} /> */}
 
             <div className="flex flex-col gap-5">
               <div className="flex gap-2 md:gap-3">
@@ -77,21 +79,33 @@ const EventDetails = async ({
               </div>
 
               <div className="p-regular-20 flex items-center gap-3">
-                <Image
-                  src="/assets/icons/location.svg"
-                  alt="location"
-                  width={32}
-                  height={32}
-                />
-                <p className="p-medium-16 lg:p-regular-20">{event.location}</p>
+                {event.location === '' ? (
+                  ''
+                ) : (
+                  <>
+                    <Image
+                      src="/assets/icons/location.svg"
+                      alt="location"
+                      width={32}
+                      height={32}
+                    />
+                    <p className="p-medium-16 lg:p-regular-20">
+                      {event.location}
+                    </p>
+                  </>
+                )}
               </div>
             </div>
 
             <div className="flex flex-col gap-2">
-              <p className="p-bold-20 text-grey-600">What You'll Learn:</p>
-              <p className="p-medium-16 lg:p-regular-18">{event.description}</p>
+              <p className="p-bold-20 text-grey-600">About this event:</p>
+              <p className="p-medium-16 lg:p-regular-18 whitespace-pre-wrap">
+                {event.description}
+              </p>
               <p className="p-medium-16 lg:p-regular-18 truncate text-primary-500 underline">
-                {event.url}
+                <Link href={event.url} target="_blank">
+                  {event.url}
+                </Link>
               </p>
             </div>
           </div>

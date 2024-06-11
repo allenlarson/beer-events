@@ -28,7 +28,7 @@ export type CreateEventParams = {
     categoryId: string;
     price: string;
     isFree: boolean;
-    url: string;
+    url?: string;
     breweryId: string;
   };
   path: string;
@@ -47,7 +47,7 @@ export type UpdateEventParams = {
     categoryId: string;
     price: string;
     isFree: boolean;
-    url: string;
+    url?: string;
     breweryId: string;
   };
   path: string;
@@ -60,6 +60,12 @@ export type DeleteEventParams = {
 
 export type GetAllEventsParams = {
   query: string;
+  category: string;
+  limit: number;
+  page: number;
+};
+
+export type GetHomeEventsParams = {
   category: string;
   limit: number;
   page: number;
@@ -88,7 +94,7 @@ export type Event = {
   location: string;
   startDateTime: Date;
   endDateTime: Date;
-  url: string;
+  url?: string;
   organizer: {
     _id: string;
     firstName: string;
