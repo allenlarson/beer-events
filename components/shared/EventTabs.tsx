@@ -121,13 +121,15 @@ const EventTabs = ({ data }: FoodTruckProps) => {
         <TableBody>
           {todaysEvents.map(event => (
             <TableRow key={event.brewery.name}>
-              <TableCell className="font-medium">
+              <TableCell className="font-medium text-sm md:text-lg">
                 <Link href={`brewery/${event.brewery._id}`}>
                   {event.brewery.name}
                 </Link>
               </TableCell>
 
-              <TableCell className="text-right">{event.title}</TableCell>
+              <TableCell className="text-right text-sm md:text-lg">
+                {event.title}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

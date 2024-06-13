@@ -1,5 +1,4 @@
 import { IEvent } from '@/lib/database/models/event.model';
-import Card from './Card';
 import Pagination from './Pagination';
 import OtherEvents from './OtherEvents';
 
@@ -11,24 +10,24 @@ type CollectionProps = {
   page: number | string;
   totalPages?: number;
   urlParamName?: any;
-  collectionType?: 'Events_Organized' | 'My_Tickets' | 'All_Events';
 };
 
-const Collection = ({
+const HomeCollection = ({
   data,
   emptyTitle,
   emptyStateSubtext,
   page,
   totalPages = 0,
-  collectionType,
   urlParamName,
 }: CollectionProps) => {
+  const otherEvents = data.filter(other => other.category.name === 'Other');
+
   return (
     <>
       {data.length > 0 ? (
-        <div className="flex flex-col items-center gap-10">
+        <div className="flex items-center gap-10">
           <ul className="flex flex-col w-full">
-            {data.map(event => {
+            {otherEvents.map(event => {
               return (
                 <li key={event._id} className="flex justify-center">
                   <OtherEvents event={event} />
@@ -55,4 +54,4 @@ const Collection = ({
   );
 };
 
-export default Collection;
+export default HomeCollection;
