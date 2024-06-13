@@ -43,9 +43,11 @@ const HappyHour = ({ data }: HappyHourProps) => {
         <TableBody>
           {happyHour.map(brewery => (
             <TableRow key={brewery.name}>
-              <TableCell className="font-medium">{brewery.name}</TableCell>
+              <TableCell className="font-medium text-sm md:text-lg">
+                {brewery.name}
+              </TableCell>
 
-              <TableCell className="text-right">
+              <TableCell className="font-medium text-sm md:text-lg text-right">
                 {brewery[contentKey]}
               </TableCell>
             </TableRow>
