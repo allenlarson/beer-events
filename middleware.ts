@@ -9,6 +9,7 @@ export default authMiddleware({
     '/api/uploadthing',
     '/brewery/:id',
     '/breweries',
+    '/events',
   ],
   ignoredRoutes: [
     '/api/webhook/clerk',
